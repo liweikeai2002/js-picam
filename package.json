@@ -1,0 +1,29 @@
+{
+  "name": "js-picam",
+  "version": "0.0.1",
+  "description": "A project for controlling a raspberry pi camera through a web UI.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goneplaid/js-picam.git"
+  },
+  "keywords": [
+    "raspberry-pi",
+    "camera",
+    "javascript",
+    "js",
+    "express",
+    "emberjs",
+    "nodejs",
+    "python"
+  ],
+  "author": "Shawn Wilson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/goneplaid/js-picam/issues"
+  },
+  "homepage": "https://github.com/goneplaid/js-picam#readme"
+}
