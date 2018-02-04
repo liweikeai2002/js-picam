@@ -1,0 +1,3 @@
+[submodule "js-picam-ui"]
+	path = js-picam-ui
+	url = https://github.com/goneplaid/js-picam-ui

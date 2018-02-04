@@ -30,8 +30,7 @@
   },
   "homepage": "https://github.com/goneplaid/js-picam#readme",
   "dependencies": {
-    "express": "^4.16.2",
-    "js-picam-ui": "file:js-picam-ui"
+    "express": "^4.16.2"
   },
   "devDependencies": {
     "chai": "^4.1.2",
