@@ -3,7 +3,11 @@
   "version": "0.0.1",
   "description": "A project for controlling a raspberry pi camera through a web UI.",
   "scripts": {
-    "test": "test"
+    "install-ui": "npm install js-picam-ui",
+    "build-ui": "cd js-picam-ui && ember build --environment=development --output-path=../public/ui",
+    "run-ui": "npm run-script install-ui && npm run-script build-ui",
+    "server": "node server.js",
+    "build-and-run": "npm run-script run-ui && node server.js"
   },
   "repository": {
     "type": "git",
@@ -26,7 +30,8 @@
   },
   "homepage": "https://github.com/goneplaid/js-picam#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "js-picam-ui": "file:js-picam-ui"
   },
   "devDependencies": {
     "chai": "^4.1.2",
