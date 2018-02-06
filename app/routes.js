@@ -3,7 +3,7 @@ const PythonShell = require('python-shell');
 
 module.exports = function(app) {
   app.get('/', function(request, response) {
-    request.sendFile('./public/ui/index.html'); // load our public/index.html file
+    request.sendFile('./public/index.html'); // load our public/index.html file
   });
 
   app.get('/capture-image', function(request, response) {

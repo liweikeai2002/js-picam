@@ -1,21 +1,17 @@
-// server.js
+// Create our application
+const express = require('express');
+const app = express();
 
-// initial server based on this handy post: http://www.programwitherik.com/setup-your-ember-project-with-node/
+// Setup our application
+app.set('port', process.env.PORT || 3001);
+app.use(express.static(__dirname + `/public`));
 
-// modules
-var express        = require('express');
-var app            = express();
-
-// set our port
-var port = process.env.PORT || 3000;
-
-// set the static files location
-app.use(express.static(__dirname + '/public/ui'));
-
+// Load our routes
 require('./app/routes')(app); // configure our routes
 
-// startup our app at http://localhost:3000
-app.listen(port);
+app.listen(app.get('port'), function appListen() {
+  console.log(`js-picam app started! listening on port ${app.get('port')}`);
+});
 
 // expose app
 exports = module.exports = app;
