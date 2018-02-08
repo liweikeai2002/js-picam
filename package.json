@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "A project for controlling a raspberry pi camera through a web UI.",
   "scripts": {
-    "server": "node server.js"
+    "start": "node ./bin/www"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,6 @@
     "javascript",
     "js",
     "express",
-    "emberjs",
     "nodejs",
     "python"
   ],
@@ -26,8 +25,14 @@
   },
   "homepage": "https://github.com/goneplaid/js-picam#readme",
   "dependencies": {
-    "express": "^4.16.2",
-    "python-shell": "^0.4.0"
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.2",
+    "jade": "~1.11.0",
+    "python-shell": "^0.4.0",
+    "morgan": "~1.9.0",
+    "serve-favicon": "~2.4.5"
   },
   "devDependencies": {
     "chai": "^4.1.2",
