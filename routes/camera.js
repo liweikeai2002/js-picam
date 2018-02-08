@@ -1,13 +1,14 @@
-// app/routes.js
-const PythonShell = require('python-shell');
+var express = require('express');
+var router = express.Router();
 
-module.exports = function(app) {
-  app.get('/capture-image', function(request, response) {
-    PythonShell.run('lib/python/scripts/capture-image.py', function (err) {
-      if (err) { throw err };
+var PythonShell = require('python-shell');
 
-      console.log('finished');
-    });
+router.get('/capture-image', function(request, response) {
+  PythonShell.run('lib/python/scripts/capture-image.py', function (err) {
+    if (err) { throw err };
 
+    console.log('finished');
   });
-};
+});
+
+module.exports = router;
