@@ -1,3 +1,8 @@
+// TODO, @tests: great post here:
+//   https://scotch.io/tutorials/test-a-node-restful-api-with-mocha-and-chai
+//
+// look into installing morgan and continue to reference this for testing
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
