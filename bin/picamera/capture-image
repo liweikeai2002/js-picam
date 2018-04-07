@@ -14,16 +14,17 @@ imageOptions = sys.argv[2:]
 
 print('path to image: ' + imagePath)
 
-import picamera
-
-camera = picamera.PiCamera()
-
 for option in imageOptions:
     setting = getArgKey(option)
     value = getArgValue(option)
 
     print(setting + ': ' + value)
 
+import picamera
+
+camera = picamera.PiCamera()
+
+for option in imageOptions:
     setattr(picamera, setting, value)
 
 sleep(2)
