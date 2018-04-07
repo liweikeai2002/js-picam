@@ -18,6 +18,9 @@ for option in imageOptions:
     setting = getArgKey(option)
     value = getArgValue(option)
 
+    if setting in 'brightness contrast saturation':
+        value = int(value)
+
     print(setting + ': ' + value)
 
 import picamera
