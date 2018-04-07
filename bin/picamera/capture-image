@@ -1,6 +1,7 @@
 #!/usr/bin/env python2.7
 
 import sys
+from time import sleep
 
 def getArgKey(argument):
     return argument.split('=')[0]
@@ -18,12 +19,15 @@ import picamera
 camera = picamera.PiCamera()
 
 for option in imageOptions:
-    setattr(picamera, getArgKey(option), getArgValue(option))
+    setting = getArgKey(option)
+    value = getArgValue(option)
 
+    print(setting + ': ' + value)
+
+    setattr(picamera, setting, value)
+
+sleep(2)
 camera.capture(imagePath)
-
-
-
 
 # PI CAMERA METHODS:
 #

@@ -70,8 +70,11 @@ router.post('/capture-image', function (request, response) {
   pythonShell.end(function (error) {
     if (error && error.message.includes(NO_PICAMERA_MESSAGE)) {
       console.logJs('picamera mock-execution, no images captured')
-    } else {
+    } else if (error) {
       console.logJs(error)
+    } else {
+      console.logJs(`image captured: ${imageFileName}`)
+    }
     }
 
     response.send('capture-image finished');
