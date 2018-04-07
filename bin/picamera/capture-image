@@ -1,0 +1,94 @@
+#!/usr/bin/env python2.7
+
+import sys
+
+def getArgKey(argument):
+    return argument.split('=')[0]
+
+def getArgValue(argument):
+    return argument.split('=')[1]
+
+imageDirPath = getArgValue(sys.argv[1] + '/image.jpg')
+imageOptions = sys.argv[2:]
+
+print('path to image: ' + imageDirPath)
+
+import picamera
+
+camera = picamera.PiCamera()
+
+for option in imageOptions:
+    setattr(picamera, getArgKey(option), getArgValue(option))
+
+camera.capture(imageDirPath)
+
+
+
+
+# PI CAMERA METHODS:
+#
+# add_overlay(source, size=None, **options)
+# capture(output, format=None, use_video_port=False, resize=None, splitter_port=0, **options)[
+# capture_continuous(output, format=None, use_video_port=False, resize=None, splitter_port=0, burst=False, **options)
+# capture_sequence(outputs, format='jpeg', use_video_port=False, resize=None, splitter_port=0, burst=False, **options)
+# close()
+# record_sequence(outputs, format='h264', resize=None, splitter_port=1, **options)
+# remove_overlay(overlay)
+# split_recording(output, splitter_port=1, **options)
+# start_preview(**options)
+# start_recording(output, format=None, resize=None, splitter_port=1, **options)
+# stop_preview()
+# stop_recording(splitter_port=1)
+# wait_recording(timeout=0, splitter_port=1)
+#
+#
+# PI CAMERA PROPERTIES
+#
+# analog_gain
+# annotate_background
+# annotate_foreground
+# annotate_frame_num
+# annotate_text
+# annotate_text_size
+# awb_gains
+# awb_mode
+# brightness
+# closed
+# color_effects
+# contrast
+# crop
+# digital_gain
+# drc_strength
+# exif_tags
+# exposure_compensation
+# exposure_mode
+# exposure_speed
+# flash_mode
+# frame
+# framerate
+# hflip
+# image_denoise
+# image_effect
+# image_effect_params
+# iso
+# led
+# meter_mode
+# overlays
+# preview
+# preview_alpha
+# preview_fullscreen
+# preview_layer
+# preview_window
+# previewing
+# raw_format
+# resolution
+# rotation
+# saturation
+# sensor_mode
+# sharpness
+# shutter_speed
+# still_stats
+# vflip
+# video_denoise
+# video_stabalization
+# zoom
