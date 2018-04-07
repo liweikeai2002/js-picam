@@ -21,7 +21,7 @@ const router = express.Router();
 const NO_PICAMERA_MESSAGE = 'ImportError: No module named picamera';
 const cameraImagesPath = `${process.env.PWD}/public/images/camera-images`;
 
-const creatImagesDirectory = function (path) {
+const createImagesDirectory = function (path) {
   fs.stat(cameraImagesPath, function (error, stat) {
     if (!stat) {
       fs.mkdirSync(cameraImagesPath);
@@ -30,17 +30,31 @@ const creatImagesDirectory = function (path) {
   });
 };
 
+const buildDateString = function () {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth() + 1;
+  const day = currentDate.getDate();
+  const hour = currentDate.getHours();
+  const minute = currentDate.getMinutes();
+  const second = currentDate.getSeconds();
+
+  return `${year}.${month}.${day}-${hour}.${minute}.${second}`;
+};
+
 router.get('/', function (request, response) {
   // send camera information, like if it's currently in use, etc... ?
   response.send();
 });
 
 router.post('/capture-image', function (request, response) {
-  creatImagesDirectory(cameraImagesPath);
+  createImagesDirectory(cameraImagesPath);
 
+  const imageFileName = `${buildDateString()}.jpeg`;
   const imageConfiguration = request.body['image-configuration'];
+
   const shellOptions = {
-    args: [`path=${cameraImagesPath}`]
+    args: [`path=${cameraImagesPath}/${imageFileName}`]
   };
 
   for (let optionKey of Object.keys(imageConfiguration.options)) {

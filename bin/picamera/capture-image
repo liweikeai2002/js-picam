@@ -8,10 +8,10 @@ def getArgKey(argument):
 def getArgValue(argument):
     return argument.split('=')[1]
 
-imageDirPath = getArgValue(sys.argv[1] + '/image.jpg')
+imagePath = getArgValue(sys.argv[1])
 imageOptions = sys.argv[2:]
 
-print('path to image: ' + imageDirPath)
+print('path to image: ' + imagePath)
 
 import picamera
 
@@ -20,7 +20,7 @@ camera = picamera.PiCamera()
 for option in imageOptions:
     setattr(picamera, getArgKey(option), getArgValue(option))
 
-camera.capture(imageDirPath)
+camera.capture(imagePath)
 
 
 
