@@ -25,7 +25,7 @@ import picamera
 camera = picamera.PiCamera()
 
 for option in imageOptions:
-    setattr(picamera, setting, value)
+    setattr(camera, setting, value)
 
 sleep(2)
 camera.capture(imagePath)
