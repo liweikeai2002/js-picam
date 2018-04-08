@@ -61,9 +61,9 @@ router.post('/capture-image', function (request, response) {
     shellOptions.args.push(`${optionKey}=${imageConfiguration.options[optionKey]}`);
   }
 
-  const pythonShell = new PythonShell('bin/picamera/capture-image', shellOptions, function () {
-    console.logPy('starting python script')
-  });
+  console.logPy('starting python script')
+
+  const pythonShell = new PythonShell('bin/picamera/capture-image', shellOptions);
 
   pythonShell.on('message', function (message) {
     console.logPy(message);
