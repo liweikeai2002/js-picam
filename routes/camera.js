@@ -61,7 +61,9 @@ router.post('/capture-image', function (request, response) {
     shellOptions.args.push(`${optionKey}=${imageConfiguration.options[optionKey]}`);
   }
 
-  const pythonShell = new PythonShell('bin/picamera/capture-image', shellOptions);
+  const pythonShell = new PythonShell('bin/picamera/capture-image', shellOptions, function () {
+    console.logPy('starting python script')
+  });
 
   pythonShell.on('message', function (message) {
     console.logPy(message);
@@ -71,8 +73,9 @@ router.post('/capture-image', function (request, response) {
     if (error && error.message.includes(NO_PICAMERA_MESSAGE)) {
       console.logJs('picamera mock-execution, no images captured');
     } else if (error) {
-      console.logJs(error);
+      console.logPy(error);
     } else {
+      console.logPy('ending python script');
       console.logJs(`image captured: ${imageFileName}`);
     }
 
