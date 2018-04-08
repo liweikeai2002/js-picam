@@ -19,12 +19,11 @@ const fs = require('fs');
 const router = express.Router();
 
 const NO_PICAMERA_MESSAGE = 'ImportError: No module named picamera';
-const cameraImagesPath = `${process.env.PWD}/public/images/camera-images`;
 
 const createImagesDirectory = function (path) {
-  fs.stat(cameraImagesPath, function (error, stat) {
+  fs.stat(path, function (error, stat) {
     if (!stat) {
-      fs.mkdirSync(cameraImagesPath);
+      fs.mkdirSync(path);
       console.logJs('camera images directory created')
     }
   });
@@ -32,6 +31,8 @@ const createImagesDirectory = function (path) {
 
 const buildDateString = function () {
   const currentDate = new Date();
+
+  // Refactor this crap and try using Intl.DateTimeFormat().format()
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth() + 1;
   const day = currentDate.getDate();
@@ -48,13 +49,16 @@ router.get('/', function (request, response) {
 });
 
 router.post('/capture-image', function (request, response) {
-  createImagesDirectory(cameraImagesPath);
+  const imageConfiguration = request.body['image-configuration'];
+  const imagesBasePath = `${process.env.PWD}/public/images/camera-images`;
+  const imagesPath = `${imagesBasePath}/${imageConfiguration.name}`;
+
+  createImagesDirectory(imagesPath);
 
   const imageFileName = `${buildDateString()}.jpeg`;
-  const imageConfiguration = request.body['image-configuration'];
 
   const shellOptions = {
-    args: [`path=${cameraImagesPath}/${imageFileName}`]
+    args: [`path=${imagesPath}/${imageFileName}`]
   };
 
   for (let optionKey of Object.keys(imageConfiguration.options)) {
