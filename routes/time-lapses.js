@@ -12,13 +12,13 @@ router.get('/', function (request, response) {
     const responseBody = {};
     const includedModels = [];
 
-    responseBody.data = validDirectories.map((directoryName, index) => {
+    responseBody.data = validDirectories.map((directoryName, directoryIndex) => {
       let fileCount = 0;
 
       const imageFiles = fs.readdirSync(`${imagesDirectory}/${directoryName}`);
 
-      const imageRelationships = imageFiles.map(function(fileName, index) {
-        const id = +index;
+      const imageRelationships = imageFiles.map(function(fileName, imageIndex) {
+        const id = `${directoryIndex}_${imageIndex}`;
 
         includedModels.push({
           id,
@@ -34,7 +34,7 @@ router.get('/', function (request, response) {
 
       return {
         type: 'time-lapses',
-        id: index,
+        id: directoryIndex,
         attributes: {
           name: directoryName
         },
@@ -45,7 +45,7 @@ router.get('/', function (request, response) {
         },
         links: {
           images: {
-            href: `http://localhost:${process.env.PORT}/time-lapses/${index}/images`,
+            href: `http://localhost:${process.env.PORT}/time-lapses/${directoryIndex}/images`,
             meta: {
               count: imageFiles.length
             }
