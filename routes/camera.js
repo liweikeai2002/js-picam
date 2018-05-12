@@ -51,12 +51,16 @@ router.get('/', function (request, response) {
 router.post('/capture-image', function (request, response) {
   const imageConfiguration = request.body['image-configuration'];
   const imagesBasePath = `${process.env.PWD}/public/images/camera-images`;
+
+  // Later on, this will need to go into a directory based on the timelapse name
+  // Manually-taken images should go into a directory called "manual".
+  // Maybe we need an abstraction called "collection" instead? Manually-taken images
+  // go into their own, timelapses get their own, etc...
   const imagesPath = `${imagesBasePath}/${imageConfiguration.name}`;
 
   createImagesDirectory(imagesPath);
 
   const imageFileName = `${buildDateString()}.jpeg`;
-
   const shellOptions = {
     args: [`path=${imagesPath}/${imageFileName}`]
   };

@@ -4,6 +4,7 @@
 // look into installing morgan and continue to reference this for testing
 
 var express = require('express');
+var cors = require('cors');
 var path = require('path');
 //var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -13,6 +14,8 @@ var bodyParser = require('body-parser');
 // APPLICATION SETUP
 
 var app = express();
+
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,8 +32,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // ROUTE SETUP
 
 var camera = require('./routes/camera');
+var timeLapses = require('./routes/time-lapses');
 
 app.use('/camera', camera);
+app.use('/time-lapses', timeLapses);
 
 // ERROR HANDLING
 
