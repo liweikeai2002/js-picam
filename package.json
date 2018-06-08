@@ -4,7 +4,9 @@
   "description": "A project for controlling a raspberry pi camera through a web UI.",
   "scripts": {
     "start": "PORT=8001 nodemon --inspect ./bin/www",
-    "test": "mocha --timeout 10000"
+    "start-silent": "PORT=8001 nodemon ./bin/www",
+    "test": "mocha --timeout 10000",
+    "migrate": "./bin/migrate-schema"
   },
   "repository": {
     "type": "git",
@@ -33,7 +35,9 @@
     "debug": "~2.6.9",
     "express": "~4.16.2",
     "jade": "~1.11.0",
+    "js-picam-domain": "file:../js-picam-domain",
     "mongodb": "^3.0.5",
+    "mongoose": "^5.1.4",
     "morgan": "~1.9.0",
     "python-shell": "^0.4.0",
     "serve-favicon": "~2.4.5"

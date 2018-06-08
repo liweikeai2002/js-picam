@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+// This script reads model meta data from the js-picam-domain project and generates
+// model schema's for mongoose.
+//
+// It uses
+
+const pry = require('pryjs')
+const path = require('path');
+
+const schemaDir = path.join(process.env.PWD, 'models');
+
+
+const models = require('js-picam-domain').models;
+
+const schemaGenerator = require('../lib/schema-generator');
+
+models.forEach(function(model) {
+
+});

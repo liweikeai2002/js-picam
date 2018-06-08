@@ -3,17 +3,22 @@
 //
 // look into installing morgan and continue to reference this for testing
 
-var express = require('express');
-var cors = require('cors');
-var path = require('path');
-//var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+
+const MongoClient = require('mongodb').MongoClient;
+const connectionString = require('./config/database');
+
+//const favicon = require('serve-favicon');
+
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
 // APPLICATION SETUP
 
-var app = express();
+const app = express();
 
 app.use(cors());
 
@@ -31,8 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTE SETUP
 
-var camera = require('./routes/camera');
-var timeLapses = require('./routes/time-lapses');
+const camera = require('./routes/camera');
+const timeLapses = require('./routes/time-lapses');
 
 app.use('/camera', camera);
 app.use('/time-lapses', timeLapses);
@@ -41,7 +46,7 @@ app.use('/time-lapses', timeLapses);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });

@@ -1,9 +1,39 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
+const image = require('js-picam-domain').Image;
 
-router.get('/', function (request, response) {
+const mongo = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
+const mongoUrl = require('../config/database').test;
+
+const TimeLapseModel = require('../models/time-lapse');
+
+router.post('/', function(request, response) {
+  mongoose.connect(mongoUrl);
+
+  const db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'connection error:'));
+  db.once('open', function() {
+
+    const data = request.body.data;
+
+    const derp = new TimeLapseModel(data.attributes);
+
+    derp.save(function(error) {
+      debugger;
+    });
+  });
+
+});
+
+
+router.get('/', function(request, response) {
   const imagesDirectory = `${process.env.PWD}/public/images/camera-images`;
+
+  mongo.connect(mongoUrl, (err, client) => {
+
+  })
 
   response.set('Content-Type', 'application/vnd.api+json');
 
@@ -15,7 +45,7 @@ router.get('/', function (request, response) {
     responseBody.data = validDirectories.map((directoryName, directoryIndex) => {
       let fileCount = 0;
 
-      const imageFiles = fs.readdirSync(`${imagesDirectory}/${directoryName}`);
+      const imageFiles = fs.readdirSync(`${imagesDirectory}/${directoryName}`).filter(dir => !dir.startsWith('.'));
 
       const imageRelationships = imageFiles.map(function(fileName, imageIndex) {
         const id = `${directoryIndex}_${imageIndex}`;

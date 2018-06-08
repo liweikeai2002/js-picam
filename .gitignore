@@ -60,3 +60,6 @@ typings/
 
 # public items
 public/images/camera-images/*
+
+# config things
+config
