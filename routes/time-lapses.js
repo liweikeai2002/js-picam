@@ -1,39 +1,33 @@
 const express = require('express');
 const router = express.Router();
+
 const fs = require('fs');
 const image = require('js-picam-domain').Image;
-
-const mongo = require('mongodb').MongoClient;
-const mongoose = require('mongoose');
-const mongoUrl = require('../config/database').test;
 
 const TimeLapseModel = require('../models/time-lapse');
 
 router.post('/', function(request, response) {
-  mongoose.connect(mongoUrl);
+  // TODO:
+  //
+  // * Needs to validate the existence of a name
+  // * Needs to validate the uniqness of the name
 
-  const db = mongoose.connection;
-  db.on('error', console.error.bind(console, 'connection error:'));
-  db.once('open', function() {
+  const data = request.body.data;
+  const timeLapse = new TimeLapseModel(data.attributes);
 
-    const data = request.body.data;
+  timeLapse.save();
+});
 
-    const derp = new TimeLapseModel(data.attributes);
+router.get('/', async function() {
+  const timeLapses = await TimeLapseModel.find();
 
-    derp.save(function(error) {
-      debugger;
-    });
-  });
-
+  debugger;
 });
 
 
-router.get('/', function(request, response) {
+
+router.get('/ - deprecated', function(request, response) {
   const imagesDirectory = `${process.env.PWD}/public/images/camera-images`;
-
-  mongo.connect(mongoUrl, (err, client) => {
-
-  })
 
   response.set('Content-Type', 'application/vnd.api+json');
 

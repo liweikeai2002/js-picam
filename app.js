@@ -42,6 +42,20 @@ const timeLapses = require('./routes/time-lapses');
 app.use('/camera', camera);
 app.use('/time-lapses', timeLapses);
 
+// DATABASE SETUP
+
+const mongoose = require('mongoose');
+const mongoUrl = require('./config/database').test;
+
+mongoose.connect(mongoUrl);
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('connected to database');
+});
+
 // ERROR HANDLING
 
 // catch 404 and forward to error handler

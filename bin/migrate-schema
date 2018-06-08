@@ -5,16 +5,13 @@
 //
 // It uses
 
-const pry = require('pryjs')
 const path = require('path');
-
 const schemaDir = path.join(process.env.PWD, 'models');
 
-
 const models = require('js-picam-domain').models;
-
-const schemaGenerator = require('../lib/schema-generator');
+const modelGenerator = require('../lib/model-generator');
 
 models.forEach(function(model) {
-
+  // TODO: Loop through each of the models and invoke whatever function
+  // is decided in schema-generator that will create the schemas.
 });
