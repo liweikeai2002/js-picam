@@ -1,9 +1,8 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Schema } = require('mongoose');
 
 const timeLapseSchema = new Schema({
   name: String,
   dateCreated: { type: Date, default: Date.now }
 });
 
-module.exports = timeLapseSchema
+module.exports = timeLapseSchema;

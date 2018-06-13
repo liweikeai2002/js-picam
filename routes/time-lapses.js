@@ -1,21 +1,53 @@
 const express = require('express');
 const router = express.Router();
+const statuses = require('http-status-codes');
 
 const fs = require('fs');
 const image = require('js-picam-domain').Image;
 
-const TimeLapseModel = require('../models/time-lapse');
+const TimeLapseModel = require('../models/time-lapse/model');
+const timeLapseSerializer = require('../models/time-lapse/serializer');
 
-router.post('/', function(request, response) {
-  // TODO:
-  //
-  // * Needs to validate the existence of a name
-  // * Needs to validate the uniqness of the name
+router.post('/', async function(request, response) {
 
-  const data = request.body.data;
-  const timeLapse = new TimeLapseModel(data.attributes);
+  // TODO: make this the default response type through some middleware, yo.
+  response.set('Content-Type', 'application/vnd.api+json');
+
+  const data = request.body.data.attributes;
+
+  if (!data.name) {
+    return response.status(statuses.UNPROCESSABLE_ENTITY).send({
+      errors: [
+        {
+          status: statuses.UNPROCESSABLE_ENTITY,
+          title: statuses.getStatusText(statuses.UNPROCESSABLE_ENTITY),
+          detail: 'A time-lapse name is required'
+        }
+      ]
+    });
+  }
+
+  const existingRecords = await TimeLapseModel.find({ 'name': data.name });
+
+  if (existingRecords.length) {
+    return response.status(statuses.CONFLICT).send({
+      errors: [
+        {
+          status: statuses.CONFLICT,
+          title: statuses.getStatusText(statuses.CONFLICT),
+          detail: 'A time-lase with the same name was found. Names must be unique'
+        }
+      ]
+    });
+  }
+
+  const timeLapse = new TimeLapseModel(data);
 
   timeLapse.save();
+
+  return response.status(statuses.CREATED).send(
+    timeLapseSerializer.serialize(timeLapse)
+  );
 });
 
 router.get('/', async function() {
@@ -23,8 +55,6 @@ router.get('/', async function() {
 
   debugger;
 });
-
-
 
 router.get('/ - deprecated', function(request, response) {
   const imagesDirectory = `${process.env.PWD}/public/images/camera-images`;

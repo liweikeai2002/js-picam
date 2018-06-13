@@ -1,20 +1,18 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const schema = require('./schema');
 
-const timeLapseSchema = require('./schemas/time-lapse-schema');
-
-timeLapseSchema.methods.run = function() {
+schema.methods.run = function() {
   // TODO: implement run functionality
   //
   // this will initialize a python bin script that will capture images
 }
 
-timeLapseSchema.methods.pause = function() {
+schema.methods.pause = function() {
   // TODO: implement pause functionality
   //
   // this will cause this timeLapse to pause its capturing of images
 }
 
-const TimeLapse = mongoose.model('TimeLapse', timeLapseSchema);
+const TimeLapse = mongoose.model('TimeLapse', schema);
 
 module.exports = TimeLapse;
